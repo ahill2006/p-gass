@@ -1,0 +1,23 @@
+import board
+import neopixel
+import time
+import random
+num_pixels = 10
+np = neopixel.NeoPixel(board.NEOPIXEL, num_pixels, brightness=.5, auto_write=False)
+
+def chase(color1, color2, loop = 20, count=3, delay=0.1):
+    result = 0
+    for outer in range(count*loop):
+        np.fill(color1)
+        for i in range(num_pixels):
+            if i % count == result:
+                np[i] = color2
+        np.show()
+        time.sleep(delay)
+        result+=1
+        result %= count
+
+
+
+while True:
+    chase((255, 0, 0), (255, 120, 0 ), count=3, loop=30, delay=.03)
